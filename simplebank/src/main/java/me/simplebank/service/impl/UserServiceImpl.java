@@ -2,11 +2,13 @@ package me.simplebank.service.impl;
 
 import me.simplebank.domain.model.user.User;
 import me.simplebank.domain.model.user.UserType;
+import me.simplebank.dto.UserDTO;
 import me.simplebank.repository.UserRepository;
 import me.simplebank.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,7 +36,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void create(User user) {
+    public User create(UserDTO data) {
+        User newUser = new User(data);
+
+        this.saveUser(newUser);
+        return newUser;
+    }
+
+    @Override
+    public void saveUser(User user) {
         this.userRepository.save(user);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return this.userRepository.findAll();
     }
 }

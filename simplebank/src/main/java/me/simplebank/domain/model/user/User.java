@@ -1,10 +1,8 @@
 package me.simplebank.domain.model.user;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import me.simplebank.dto.UserDTO;
 
 import java.math.BigDecimal;
 
@@ -13,6 +11,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class User {
 
@@ -32,4 +31,14 @@ public class User {
     private BigDecimal balance;
     @Enumerated(EnumType.STRING)
     private UserType userType;
+
+    public User(UserDTO data) {
+        this.firstname = data.firstname();
+        this.lastname = data.lastname();
+        this.balance = data.balance();
+        this.userType = data.userType();
+        this.document = data.document();
+        this.email = data.email();
+        this.password = data.password();
+    }
 }
